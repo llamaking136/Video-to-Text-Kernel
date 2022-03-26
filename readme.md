@@ -1,41 +1,24 @@
-# Color Video to Text Conversion
+# Video to Text 'Kernel'
 
-A few tools to convert video and images into ASCII art in an ANSI terminal. These tools support color output using the ANSI 256 color set, as well as the creation of a self-contained playback executable for video converted to text, with compression able to fit 4 minutes of 80 column 15 FPS video onto a single floppy disk!
+Videos can now run on plain i386 hardware. I'm not sure either OS or kernel fit the name, but oh well.
+It's kind of an operating system, where you have a bootloader (in this case GRUB) and loads the kernel into memory and executes it.
+Idk what else to put here, I'm really bad with READMEs. :/
 
- ## Check out [this video](https://www.youtube.com/watch?v=uGoR3ZYZqjc) for more information and to see sample output for video to text conversion.
+Requirements:
+* NASM
+* i686-elf toolchain
+* GRUB utils
 
-![Screenshot](screenshot.png)
+You can build it by running
 
-A sample image converted to text and printed to the terminal.
+`make kernel`
 
----
+and it will make the `playback.elf` file.
 
-**Note:** To run these programs, you will need Python 3 installed, alongside NumPy and OpenCV (for image io).
+In order to make it runnable on real hardware (or just build the ISO), you can run
 
-## Displaying Images as Text
-The python script imageToTextColor.py will print an image file provided as an argument as text to the terminal.
+`make iso`
 
-`python3 imgToTextColor.py your_image_here.jpg`
+after the last command and it will make the `playback.iso` file.
 
-The width of the output can be configured in the header of the python file.
-
-## Displaying Videos as Text
-The python script videoToTextColor.py will play back a video provided as an argument as text to the terminal.
-
-`python3 videoToTextColor.py your_video_here.mp4`
-
-The width and aspect ratio of the output can be configured in the header of the python file.
-
-
-## Creating Video Playback Executables
-The provided makefile allows building programs which will play the compressed text encoding of the video stored in the executable. The target video should be named `vid.mp4`, otherwise the path to the video can be changed in the header of convert.py.
-
-To build for Linux targets (using GCC) run 
-
-`make playback`
-
-Otherwise to build for Windows targets (using MinGW) run 
-
-`make playback.exe`
-
-Other aspects of the video encoding, such as character width and framerate can be adjusted in both convert.py and playback.c. **Be sure to update these parameters in both files.**
+Now you're ready to flash the ISO!
